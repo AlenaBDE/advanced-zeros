@@ -22,7 +22,7 @@
     };
 
     function getNOK(num) {
-        var j = 1;
+        var j = 0;
         var i = 2;
         var a = new Array();
         do {
@@ -41,27 +41,12 @@
 
 module.exports = function getZerosCount(number, base) {
         var nok = getNOK(base);
-        var res = [];
-        var zeros = Number.MAX_VALUE;
         var diff = 0;
-        var fact = 0;
-        nok.forEach(function (item, i, arr) {
-           if (diff != item) {
-               fact = factorial(number, item);
-               res.push(fact);
-               diff = item;
-           } else
-               res.push(fact);
-        });
-        for (var i = 0; i < res.length; i++) {
-            var key = res[i];
-            key = key / res.filter(function (number) {
-                    return number == key;
-                }).length >> 0;
-
-            if (zeros > key) {
-                zeros = key;
-            }
-        }
-        return zeros;
+        var fact =  0;
+        var maxNok = Math.max.apply(null, nok);
+        var d = nok.filter(function (nn) {
+            return nn == maxNok;
+        }).length;
+            fact = factorial(number, maxNok);
+        return fact / d >> 0;
     };
